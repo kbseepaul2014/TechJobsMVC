@@ -1,0 +1,54 @@
+﻿<h1></h1>
+
+<form action="/Search/Results">
+    <h2>Search by:</h2>
+
+    <p>
+        @foreach (KeyValuePair<string, string> column in ViewBag.columns)
+        {
+
+            @if (ViewBag.selected == column.Key){ 
+            <span>
+                <input type="radio"
+                       name="searchType"
+                       id="@column.Key"
+                       value="@column.Key" 
+                       checked>
+                <label for="@column.Key">@column.Value</label>
+            </span>
+            }
+
+            else { 
+            <span>
+                <input type="radio"
+                       name="searchType"
+                       id="@column.Key"
+                       value="@column.Key">
+                <label for="@column.Key">@column.Value</label>
+            </span>
+            }
+        }
+    </p>
+
+    <p>
+        <label for="searchTerm">Keyword:</label>
+        <input type="text" name="searchTerm" id="searchTerm" />
+        <span class="error">@ViewBag.error</span>
+    </p>
+
+    <input type="submit" value="Search" />
+</form>
+
+<hr />
+
+@if (ViewBag.jobs != null)
+{
+
+    <h3>@ViewBag.jobs.Count Result(s) for "@ViewBag.search"</h3>
+
+    // TODO #2 - Loop over jobs dictionary and display all job fields
+
+    @await Html.PartialAsync("_ListPartial")
+
+    
+}
